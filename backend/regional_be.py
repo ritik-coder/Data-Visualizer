@@ -10,15 +10,27 @@ import json
 regional_be = Flask(__name__)
 CORS(regional_be)
 
-    # Connect to MongoDB
-client = MongoClient('mongodb://localhost:27017/')
-    # Access the database
-db = client['map_project']
-    # Access the collection1
-collection1 = db['India_map']
-collection2 = db['Eastern_map']
+#     # Connect to MongoDB
+# client = MongoClient('mongodb://localhost:27017/')
+#     # Access the database
+# db = client['map_project']
+#     # Access the collection1
+# collection1 = db['India_map']
+# collection2 = db['Eastern_map']
 
+def dbcollection():
+        # Connect to MongoDB
+    CONNECTION_STRING = "mongodb://mongodb0.erldc.in:27017,mongodb1.erldc.in:27017/?replicaSet=CONSERV"
+    client = MongoClient(CONNECTION_STRING)
+        # Access the database
+    db = client['map_project']
+        # Access the collection
+    collection1 = db['India_map']
+    collection2 = db['Eastern_map']
 
+    return collection1,collection2
+
+collection1,collection2 = dbcollection()
 
 # To fetch the data from Database
 @regional_be.route('/', methods=['GET'])
