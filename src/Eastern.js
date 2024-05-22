@@ -55,7 +55,7 @@ function Eastern() {
 
   function callApi() {
     axios
-      .get("http://localhost:3002/eastern")
+      .get("http://localhost:3001/eastern")
       .then(function (response) {
         setData(response.data);
         const attributeList = Object.keys(response.data[0]);
@@ -70,7 +70,7 @@ function Eastern() {
   // Function to update Excel data
   const updateDatabase = async (UpdateValue) => {
     try {
-      await axios.post("http://localhost:3002/eastern/update_value", {
+      await axios.post("http://localhost:3001/eastern/update_value", {
         data: UpdateValue,
       });
     } catch (error) {}
@@ -78,7 +78,7 @@ function Eastern() {
 
   const addnewvalue = async (updatedData) => {
     try {
-      await axios.post("http://localhost:3002/eastern/add_new_value", {
+      await axios.post("http://localhost:3001/eastern/add_new_value", {
         data: updatedData,
       });
       // Optionally, fetch updated data again after update
@@ -91,7 +91,7 @@ function Eastern() {
   const delete_attribute = async (attribute) => {
     try {
       // console.log(UpdateValue)
-      await axios.post("http://localhost:3002/eastern/delete_a_value", {
+      await axios.post("http://localhost:3001/eastern/delete_a_value", {
         data: attribute,
       });
     } catch (error) {
@@ -130,7 +130,7 @@ function Eastern() {
   return (
     <>
       <div className="full-width-height ">
-        <h1 className="no-margin center">States and {Energy} Graph</h1>
+        <h1 className="no-margin center">Eastern Regional {Energy} map</h1>
         <div className="devider">
           <Container1
             data={data}

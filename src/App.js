@@ -79,9 +79,9 @@ function App() {
       })
       .finally(function () {});
   }
-  data.map((item) => {
-    console.log(item.id);
-  });
+  // data.map((item) => {
+  //   console.log(item.id);
+  // });
 
   // Function to update Excel data
   const updateDatabase = async (UpdateValue) => {
@@ -149,7 +149,7 @@ function App() {
   return (
     <>
       <div className="full-width-height ">
-        <h1 className="no-margin center">States and {Energy} Graph</h1>
+        <h1 className="no-margin center">All India State Wise {Energy} Map</h1>
         <div className="devider">
           <Container1
             data={data}
@@ -200,9 +200,6 @@ function App() {
                         />
                       </>
                     );
-                    <ReactTooltip offset={{ top: 335, left: 45 }}>
-                      hfg
-                    </ReactTooltip>;
                   })
                 }
               </Geographies>

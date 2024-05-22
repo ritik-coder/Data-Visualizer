@@ -50,6 +50,7 @@ const Container3 = (props) => {
       0
     ),
   };
+  console.log(gradientData);
 
   // Function to handle the selection change
   const handleSelectChange = (event) => {
@@ -106,7 +107,7 @@ const Container3 = (props) => {
   return (
     <div class="flexbox-container ">
       <select value={selectedOption} onChange={handleSelectChange}>
-        <option value="Coal Energy">Select Energy</option>
+        <option value="Coal Energy">Select Data</option>
         {temp_list.map((item) => (
           <option value={item}>{item}</option>
         ))}
