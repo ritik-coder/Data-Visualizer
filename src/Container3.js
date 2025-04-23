@@ -50,7 +50,7 @@ const Container3 = (props) => {
       0
     ),
   };
-  console.log(gradientData);
+  // console.log(gradientData);
 
   // Function to handle the selection change
   const handleSelectChange = (event) => {

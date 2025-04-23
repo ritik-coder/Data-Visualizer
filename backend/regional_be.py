@@ -10,17 +10,11 @@ import json
 regional_be = Flask(__name__)
 CORS(regional_be)
 
-#     # Connect to MongoDB
-# client = MongoClient('mongodb://localhost:27017/')
-#     # Access the database
-# db = client['map_project']
-#     # Access the collection1
-# collection1 = db['India_map']
-# collection2 = db['Eastern_map']
 
 def dbcollection():
         # Connect to MongoDB
     CONNECTION_STRING = "mongodb://mongodb0.erldc.in:27017,mongodb1.erldc.in:27017/?replicaSet=CONSERV"
+    # CONNECTION_STRING = "mongodb://localhost:27017/"
     client = MongoClient(CONNECTION_STRING)
         # Access the database
     db = client['map_project']
@@ -44,8 +38,8 @@ def import_data_from_mongodb():
         # print(item['_id'])
 
     # df.to_json(orient='table')
-    json_data=json.dumps(data);
-    return json_data;
+    json_data=json.dumps(data)
+    return json_data
 
 
 # To update the date into database
@@ -76,11 +70,6 @@ def add_new_value():
         # Convert data to DataFrame
         df = pd.DataFrame(data['data'])
 
-        # Add a new column with a value
-        # df['value_6'] = 0
-    
-        # Write updated data to Excel file
-        # df.to_excel(r'D:\Projects\test\src\data.xlsx', index=False)
         
         return jsonify({'success': True, 'message': 'new column added successfully'})
     except Exception as e:
@@ -110,7 +99,7 @@ def uploaddata():
     try: 
         f = request.files['file']
 
-        df=pd.read_excel(f);
+        df=pd.read_excel(f)
         print(df)
 
         def is_numeric(value):
@@ -125,26 +114,15 @@ def uploaddata():
             return jsonify('all values are not numeric'), 500
 
 
-        collection_name = 'India_map'
-        if collection_name in db.list_collection_names():
-           collection1 = db[collection_name]
-            # Iterate over the rows of the DataFrame
-           for index, row in df.iterrows():
+        for index, row in df.iterrows():
         # Convert the row to a Python dictionary
-             mongo_object = row.to_dict() 
-             print(mongo_object)
+             mongo_object = row.to_dict()
+            #  print(mongo_object)
              key=mongo_object.pop("name")
             #  mongo_object.pop("State")
-        # Update existing document if it exists
-             print(collection1.find_one({'name':key}))
-             
-             collection1.update_one({'_id':key}, {'$set': mongo_object}, upsert=True)
-        else:
-    # Create a new collection1 and insert documents
-              collection1 = db[collection_name]
-              for index, row in df.iterrows():
-                   mongo_object = row.to_dict()
-                   collection1.insert_one(mongo_object)
+  
+            #  mongo_object.pop("_id")
+             collection1.update_one({'name':key}, {'$set': mongo_object}, upsert=True)
                    
         return jsonify({'message': f'Attribute " deleted from documents'}), 200
     except Exception as e:   
@@ -167,8 +145,8 @@ def import_data_from_mongodb_eastern():
         item['_id'] = str(item['_id'])
 
     # df.to_json(orient='table')
-    json_data=json.dumps(data);
-    return json_data;
+    json_data=json.dumps(data)
+    return json_data
 
 
 # To update the date into database
@@ -231,7 +209,7 @@ def delete_attribute_eastren(attribute_name):
 def uploaddata_eastern():
     try: 
         f = request.files['file']
-        df=pd.read_excel(f);
+        df=pd.read_excel(f)
         print(df) 
 
         # Function to check if a value is numeric
@@ -245,13 +223,8 @@ def uploaddata_eastern():
 
         if(not all_numeric):        
             return jsonify({'message': str(e)}), 500
-        
 
-        collection_name = 'Eastern_map'
-        if collection_name in db.list_collection_names():
-           collection2 = db[collection_name]
-            # Iterate over the rows of the DataFrame
-           for index, row in df.iterrows():
+        for index, row in df.iterrows():
         # Convert the row to a Python dictionary
              mongo_object = row.to_dict()
             #  print(mongo_object)
@@ -260,18 +233,14 @@ def uploaddata_eastern():
   
             #  mongo_object.pop("_id")
              collection2.update_one({'name':key}, {'$set': mongo_object}, upsert=True)
-        else:
-    # Create a new collection2 and insert documents
-              collection2 = db[collection_name]
-              for index, row in df.iterrows():
-                   mongo_object = row.to_dict()
-                   collection2.insert_one(mongo_object)
                    
         return jsonify({'message': f'Attribute " deleted from documents'}), 200
     except Exception as e:   
         return jsonify({'message': str(e)}), 500
 
 
+# if __name__ == '__main__':
+#     regional_be.run(port=5500, host='0.0.0.0', debug=True)
 
 if __name__ == '__main__':
     regional_be.run(port=3001, debug=True)

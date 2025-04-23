@@ -16,11 +16,11 @@ function Container1(props) {
     var updated_dict = {};
     props.data.map((item) => {
       if (item.id === id) {
-        item[field] = value;
+        item[field] = value * 1.0;
         temp_list.push(item);
         updated_dict["_id"] = _id;
         updated_dict["ques"] = field;
-        updated_dict["ans"] = value;
+        updated_dict["ans"] = value * 1.0;
         // console.log(value);
         updatedb_list.push(updated_dict);
         // props.setUpdateValue(updatedb_list);
@@ -39,7 +39,7 @@ function Container1(props) {
     greeting = (
       <table class="table">
         <tr>
-          <th>State</th>
+          <th style={{ width: "200px" }}>State</th>
           <th>{value}</th>
         </tr>
         {props.data.map((val, key) => {
@@ -58,7 +58,7 @@ function Container1(props) {
       <table class="table">
         <thead>
           <tr>
-            <th>State</th>
+            <th style={{ width: "200px" }}>State</th>
             <th>{value}</th>
           </tr>
         </thead>
@@ -94,7 +94,8 @@ function Container1(props) {
       <table class="table">
         <thead>
           <tr>
-            <th>State</th>
+            <th style={{ width: "200px" }}>State</th>
+
             <th>
               <input
                 type="text"

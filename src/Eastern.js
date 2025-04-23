@@ -115,10 +115,10 @@ function Eastern() {
 
   const onMouseclick = (e) => {
     var x = e[0];
-    console.log(e[0], e[1], e[2]);
+    // console.log(e[0], e[1], e[2]);
     // var Ac_name = "Ac_name";
     x["District"] = e[1];
-    // x["Ac_name"] = e[2];
+    x["Ac_name"] = e[2];
     setclickdata([x]);
     setshowdailog(true);
   };
@@ -214,7 +214,7 @@ function Eastern() {
           <div>
             <p>State : {clickdata[0].name}</p>
             <p>District : {clickdata[0].District}</p>
-            {/* <p>Ac_name : {clickdata[0].Ac_name}</p> */}
+            <p>Ac_name : {clickdata[0].Ac_name}</p>
             {temp_list.map((item) => (
               <p>
                 {item} : {clickdata[0][item] ? clickdata[0][item] : "NA"}
